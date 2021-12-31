@@ -4,7 +4,7 @@ module.exports = async (body) => {
     const { source: userPK } = body
     const fee = await server.fetchBaseFee();
 
-    const issuerPK = 'GCOYSJ5QSKX4RXKYIMMAGZ4RPE2EZQPPE7OYQPKT5FMIUDYGXUBAA424'
+    const issuerPK = 'GAZQMTS2SRKQ2ROF2PXZ6VZTYIJ6IBCS7LUUMH73GKN7TCUR46VX7AGQ' //change this to the issuer in config
 
     const paymentToDest = {
         destination: userPK,
@@ -14,7 +14,7 @@ module.exports = async (body) => {
     const paymentToSrc = {
         destination: issuerPK,
         asset: Asset.native(),
-        amount: '10',
+        amount: '1',
         source: userPK
     }
 

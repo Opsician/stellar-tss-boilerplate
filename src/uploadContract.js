@@ -9,38 +9,27 @@ const fs = require('fs')
 const util = require("util");
 const readFile = util.promisify(fs.readFile);
 var FormData = require('form-data');
+const config = require('../config.json');
 
-const account = {
-    secret: 'SDJBUMOB4QWUZD5J75J6IS7HQ27C5N5XYX7SLONV2MLQC4VWG4PYEOYO',
-    public: 'GCVXQCR7QCWDCQ6T324MGXDXRKNBNH2C4UGF4CLKDIQEBSH2LY4PBFWC',
-}
-
-options = {
-    turretKey: 'GB4OYM7TQTJSROWXHOJLKAX2IJ2QN4I6S6GCJH4MGWVTAO5Q5DPNADXX',
-    turretURL: 'https://stellar-turrets-testnet.sdf-ecosystem.workers.dev/',
-    fee: '2',
-    network: 'https://horizon-testnet.stellar.org'
-}
-
-const server = new Stellar.Server(options.network);
+const server = new Stellar.Server('https://horizon-testnet.stellar.org');
 
 const payment = async () => {
     const paymentToDest = {
-        destination: options.turretKey,
+        destination: config.turret.public,
         asset: Stellar.Asset.native(),
-        amount: options.fee,
+        amount: '2',
     }
     const txOptions = {
         fee: await server.fetchBaseFee(),
         networkPassphrase: 'Test SDF Network ; September 2015',
     }
-    const accountA = await server.loadAccount(account.public)
+    const accountA = await server.loadAccount(config.fundingAcct.public)
     const transaction = new Stellar.TransactionBuilder(accountA, txOptions)
         .addOperation(Stellar.Operation.payment(paymentToDest))
         .setTimeout(StellarBase.TimeoutInfinite)
         .build()
 
-    transaction.sign(Stellar.Keypair.fromSecret(account.secret))
+    transaction.sign(Stellar.Keypair.fromSecret(config.fundingAcct.secret))
 
     const xdrPay = transaction.toEnvelope().toXDR().toString("base64")
 
@@ -67,16 +56,15 @@ const uploadContract = async(xdr) => {
     const fields64 = Buffer.from(JSON.stringify(fields)).toString("base64")
     form.append('txFunctionFields', fields64);
 
-    const response = await axios.post(options.turretURL + 'tx-functions', form, { headers: {...form.getHeaders()}})
+    const response = await axios.post(config.turret.url + 'tx-functions', form, { headers: {...form.getHeaders()}})
     console.log(response.data)
-    const jsonContent = JSON.stringify(response.data)
-    fs.writeFile("contract.json", jsonContent, 'utf8', function (err) {
-        if (err) {
-            console.log("An error occured while writing JSON Object to File.");
-            return console.log(err);
-        }
-     
-        console.log("JSON file has been saved.");
+
+    config.contract.hash = response.data.hash
+    config.contract.signer = response.data.signer
+    var json = JSON.stringify(config)
+    fs.writeFile('../config.json', json, 'utf8', (err) => {
+        if (err) throw err;
+        console.log(`Saved contract info`)
     });
 }
 

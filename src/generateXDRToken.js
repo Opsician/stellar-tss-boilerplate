@@ -1,12 +1,14 @@
 const { Keypair, TransactionBuilder, Server, Account, Networks, Operation } = require('stellar-sdk')
+const config = require('../config.json');
+var fs = require('fs');
 
 // The hashes the fee payment can apply to
 // Note - this can be empty. Then, this key can be used to run any txFunction.
 const txFunctionHashes = [
-    '7b90ea95f099235bfbb847d741f297fdf0da3a144a229df3bf48289e65c0ffc6',
+    config.contract.hash,
 ];
 
-const privateKeypair = Keypair.fromSecret('SDJBUMOB4QWUZD5J75J6IS7HQ27C5N5XYX7SLONV2MLQC4VWG4PYEOYO');
+const privateKeypair = Keypair.fromSecret(config.fundingAcct.secret);
 const pk = privateKeypair.publicKey();
 
 const testnet = new Server('https://horizon-testnet.stellar.org');
@@ -35,6 +37,13 @@ const testnet = new Server('https://horizon-testnet.stellar.org');
         // this is the XDR Token
         const token = tx.toEnvelope().toXDR('base64')
         console.log(token);
+
+        config.xdrToken = token
+        var json = JSON.stringify(config)
+        fs.writeFile('../config.json', json, 'utf8', (err) => {
+            if (err) throw err;
+            console.log(`Saved XDR token`)
+        });
     } catch (e) {
         console.error(e);
     }
