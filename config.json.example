@@ -1,0 +1,29 @@
+{
+    "turret": {
+        "public": "GB4OYM7TQTJSROWXHOJLKAX2IJ2QN4I6S6GCJH4MGWVTAO5Q5DPNADXX",
+        "url": "https://stellar-turrets-testnet.sdf-ecosystem.workers.dev/"
+    },
+    "fundingAcct": {
+        "secret": "",
+        "public": ""
+    },
+    "issuerAcct": {
+        "secret": "",
+        "public": ""
+    },
+    "userAcct": {
+        "secret": "",
+        "public": ""
+    },
+    "contract": {
+        "hash": "",
+        "signer": ""
+    },
+    "xdrToken": "",
+    "result": {
+        "xdr": "",
+        "signer": "",
+        "signature": "",
+        "signedTxn": ""
+    }
+}
