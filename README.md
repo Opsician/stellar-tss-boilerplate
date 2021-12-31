@@ -22,7 +22,7 @@ Using the funding account, we make a payment and then we upload the contract `co
 This example contract will take a single input `source` which is the public key we would like to send a payment to. In the contract, the source account will be the user account which will send 1 lumen to the issuer. In return, the issuer will send 100 lumens. Great deal! Both of these operations are done within a single transaction.
 Remember our turret must be able to sign for the transaction that involves the issuer, we will do set this in the next step.
 
-** Be sure to change the issuer account to match the issuer account public key generated in the config file. This will be hard-coded into the contract.
+** In `contract.js` be sure to change the issuer account to match the issuer account public key generated in the config file. This will be hard-coded into the contract.
 
 ### 3. Set the multisignature options for the issuer account to use the turret signer account as a signer
 ```bash
