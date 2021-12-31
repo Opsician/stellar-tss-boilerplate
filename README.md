@@ -24,7 +24,7 @@ Remember our turret must be able to sign for the transaction that involves the i
 
 ** Be sure to change the issuer account to match the issuer account public key generated in the config file. This will be hard-coded into the contract.
 
-### 3. Set the multisignature options for the issuer account to use the turret signer account
+### 3. Set the multisignature options for the issuer account to use the turret signer account as a signer
 ```bash
 nodejs multisignature.js
 ```
