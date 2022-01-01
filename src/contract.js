@@ -2,7 +2,7 @@ const { Server, Networks, TransactionBuilder, Operation, Asset } = require('stel
 const server = new Server("https://horizon-testnet.stellar.org")
 module.exports = async (body) => {
     const { source: userPK } = body
-    const fee = await server.fetchBaseFee();
+    const fee = await server.fetchBaseFee(); 
 
     const issuerPK = 'GAZQMTS2SRKQ2ROF2PXZ6VZTYIJ6IBCS7LUUMH73GKN7TCUR46VX7AGQ' //change this to the issuer in config
 
