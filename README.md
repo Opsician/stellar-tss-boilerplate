@@ -26,7 +26,7 @@ Remember our turret must be able to sign for the transaction that involves the i
 
 ### 3. Set the multisignature options for the issuer account to use the turret signer account as a signer
 ```bash
-nodejs multisignature.js
+nodejs multisig.js
 ```
 This will add a new signer for the issuer account, namely the turret signer.
 
