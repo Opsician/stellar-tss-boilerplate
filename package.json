@@ -1,0 +1,23 @@
+{
+  "name": "stellar-tss-boilerplate",
+  "version": "1.0.0",
+  "description": "## Getting Started",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opsician/stellar-tss-boilerplate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/opsician/stellar-tss-boilerplate/issues"
+  },
+  "homepage": "https://github.com/opsician/stellar-tss-boilerplate#readme",
+  "dependencies": {
+    "form-data": "^4.0.0",
+    "stellar-sdk": "^10.0.1"
+  }
+}
